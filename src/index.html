@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Weather</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+            rel="stylesheet" />
+        <link rel="stylesheet" href="../dist/style.css" />
+        <script
+            src="https://kit.fontawesome.com/3a7dd000e2.js"
+            crossorigin="anonymous"></script>
+        <script defer type='module' src="./index.js"></script>
+    </head>
+    <body class="text-xl font-body">
+        <main class="relative h-screen">
+            <div
+                class="modal bg-black/50 pointer-events-auto z-20"
+                id="modalCity">
+                <div class="modal-box overflow-visible">
+                    <h3 class="font-bold text-lg pb-6">
+                        Which city's weather do you want to see?
+                    </h3>
+                    <div class="relative">
+                        <input
+                            type="text"
+                            placeholder="Enter a city"
+                            class="input input-bordered w-full rounded-full"
+                            id="selectedCity" />
+                        <ul
+                            class="absolute z-30 bg-[#404040] w-full rounded-xl overflow-hidden mt-1" id="autocompleteContainer">
+                        </ul>
+                    </div>
+                    <div class="modal-action justify-center">
+                        <button
+                            class="btn font-bold tracking-widest rounded-full"
+                            id="showWeatherBtn">
+                            Show Weather
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <section
+                class="relative h-full bg-cover bg-center bg-[url('../src/assets/images/day-sunny-0.jpg')] before:content-[''] before:absolute before:bg-black before:w-full before:h-full before:opacity-40">
+                <div
+                    class="relative h-full px-40 py-28 flex items-end justify-between opacity-0"
+                    id="mainInfoContainer">
+                    <div class="text-3xl">
+                        <div id="greeting">
+                            <i class="fa-solid fa-sun text-2xl"></i>
+                            <span>hello, it's currently</span>
+                        </div>
+                        <div class="py-8 text-10xl font-bold flex items-center">
+                            <span id="temperature">0</span><span>&#176;</span>
+                            <span class="text-8xl self-start pt-3">C</span>
+                        </div>
+                        <div class="flex items-center gap-2 pb-4">
+                            <img src="" alt="" id="conditionIcon" />
+                            <span
+                                class="text-3xl lowercase"
+                                id="conditionText"></span>
+                        </div>
+                        <div class="font-bold">
+                            in <span id="city">Odesa</span>,
+                            <span id="country">UA</span>
+                            <button type="button" id='findCityBtn'>
+                                <i
+                                    class="fa-solid fa-magnifying-glass pl-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- <button
+                        type="button"
+                        class="btn text-lg font-bold tracking-widest rounded-full">
+                        more
+                    </button> -->
+                </div>
+            </section>
+        </main>
+    </body>
+</html>
