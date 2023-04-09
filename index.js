@@ -5,7 +5,7 @@ import { displayDailyForecast } from './src/modules/display-forecast.js';
 import { displayAstroData } from './src/modules/display-astro.js';
 
 const URL_FORECAST =
-    'http://api.weatherapi.com/v1/forecast.json?key=5d1433c0927249158fb111723230504&q=';
+    'https://api.weatherapi.com/v1/forecast.json?key=5d1433c0927249158fb111723230504&q=';
 
 const findCityBtn = document.querySelector('#findCityBtn');
 const moreBtn = document.querySelector('#moreBtn');

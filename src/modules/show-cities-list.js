@@ -1,5 +1,5 @@
 const URL_SEARCH =
-    'http://api.weatherapi.com/v1/search.json?key=5d1433c0927249158fb111723230504&q=';
+    'https://api.weatherapi.com/v1/search.json?key=5d1433c0927249158fb111723230504&q=';
 
 let currentFocus = -1;
 
