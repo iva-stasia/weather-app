@@ -14,12 +14,12 @@
         <script
             src="https://kit.fontawesome.com/3a7dd000e2.js"
             crossorigin="anonymous"></script>
-        <script defer type='module' src="./index.js"></script>
+        <script defer type="module" src="./index.js"></script>
     </head>
     <body class="text-xl font-body">
-        <main class="relative h-screen">
+        <main class="relative h-screen overflow-hidden">
             <div
-                class="modal bg-black/50 pointer-events-auto z-20"
+                class="modal bg-black/50 pointer-events-auto z-30"
                 id="modalCity">
                 <div class="modal-box overflow-visible">
                     <h3 class="font-bold text-lg pb-6">
@@ -32,8 +32,8 @@
                             class="input input-bordered w-full rounded-full"
                             id="selectedCity" />
                         <ul
-                            class="absolute z-30 bg-[#404040] w-full rounded-xl overflow-hidden mt-1" id="autocompleteContainer">
-                        </ul>
+                            class="absolute z-30 bg-[#404040] w-full rounded-xl overflow-hidden mt-1"
+                            id="autocompleteContainer"></ul>
                     </div>
                     <div class="modal-action justify-center">
                         <button
@@ -46,39 +46,72 @@
             </div>
 
             <section
-                class="relative h-full bg-cover bg-center bg-[url('../src/assets/images/day-sunny-0.jpg')] before:content-[''] before:absolute before:bg-black before:w-full before:h-full before:opacity-40">
+                class="relative h-full text-fluid-s bg-cover bg-center transition-all duration-300 before:content-[''] before:absolute before:bg-black before:w-full before:h-full before:opacity-40 bg-[url('../src/assets/images/bg.jpg')]"
+                id="mainSection">
                 <div
-                    class="relative h-full px-40 py-28 flex items-end justify-between opacity-0"
+                    class="h-full w-fluid relative py-2em flex flex-col items-start justify-end gap-12 lg:flex-row lg:items-end lg:justify-between opacity-0 mx-auto"
                     id="mainInfoContainer">
-                    <div class="text-3xl">
+                    <div class="text-fluid-s">
                         <div id="greeting">
-                            <i class="fa-solid fa-sun text-2xl"></i>
-                            <span>hello, it's currently</span>
+                            <i class="fa-solid fa-sun"></i>
+                            <span></span>
                         </div>
-                        <div class="py-8 text-10xl font-bold flex items-center">
+                        <div
+                            class="py-0.1em text-fluid-b font-bold flex items-center">
                             <span id="temperature">0</span><span>&#176;</span>
-                            <span class="text-8xl self-start pt-3">C</span>
                         </div>
-                        <div class="flex items-center gap-2 pb-4">
+                        <div class="flex items-center gap-2 pb-0.5em">
                             <img src="" alt="" id="conditionIcon" />
-                            <span
-                                class="text-3xl lowercase"
-                                id="conditionText"></span>
+                            <span class="lowercase" id="conditionText"></span>
                         </div>
                         <div class="font-bold">
-                            in <span id="city">Odesa</span>,
-                            <span id="country">UA</span>
-                            <button type="button" id='findCityBtn'>
+                            in <span id="city"></span>,
+                            <span id="country"></span>
+                            <button type="button" id="findCityBtn">
                                 <i
                                     class="fa-solid fa-magnifying-glass pl-4"></i>
                             </button>
                         </div>
                     </div>
-                    <!-- <button
+                    <button
                         type="button"
-                        class="btn text-lg font-bold tracking-widest rounded-full">
-                        more
-                    </button> -->
+                        class="btn px-2em font-bold tracking-widest rounded-full transition-all duration-300"
+                        id="moreBtn">
+                        <i
+                            class="fa-solid fa-angle-left mr-0.5em transition-al duration-300"
+                            id="moreBtnArrow"></i>
+                        <span>more</span>
+                    </button>
+                </div>
+            </section>
+
+            <section
+                class="overflow-y-auto bg-neutral text-neutral-content transition-all duration-300 absolute h-full lg:max-w-sm lg:-right-96 -right-full top-0 p-2em flex items-center w-full"
+                id="forecastSection">
+                <div class="flex gap-14 flex-col items-center m-auto w-full">
+                    <button class="btn btn-circle text-5xl lg:hidden" id='closeForecastModalBtn'>
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                    <div
+                        class="flex flex-col gap-8"
+                        id="forecastDailyContainer"></div>
+
+                    <div class="text-2xl flex gap-8 justify-between">
+                        <div class="flex flex-col gap-3">
+                            <span>
+                                <i class="fa-solid fa-sun"></i>
+                                <span class="font-bold">Sunrise</span>
+                            </span>
+                            <span id="sunrise"></span>
+                        </div>
+                        <div class="flex flex-col gap-3">
+                            <span>
+                                <i class="fa-regular fa-sun"></i>
+                                <span class="font-bold">Sunset</span>
+                            </span>
+                            <span id="sunset"></span>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>

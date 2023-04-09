@@ -1,27 +1,40 @@
-import { showAvailableCities } from './show-cities-list.js';
+import { showAvailableCities } from './modules/show-cities-list.js';
+import { setBg } from './modules/set-bg.js';
+import { displayMainData } from './modules/display-main-data.js';
+import { displayDailyForecast } from './modules/display-forecast.js';
+import { displayAstroData } from './modules/display-astro.js';
 
-// TODO change background
-// TODO forecast
+const URL_FORECAST =
+    'http://api.weatherapi.com/v1/forecast.json?key=5d1433c0927249158fb111723230504&q=';
 
 const findCityBtn = document.querySelector('#findCityBtn');
+const moreBtn = document.querySelector('#moreBtn');
+const closeForecastModalBtn = document.querySelector('#closeForecastModalBtn');
 
 update();
-findCityBtn.addEventListener('click', findDataByCity);
+findCityBtn.addEventListener('click', getDataByCity);
+moreBtn.addEventListener('click', showForecastModal);
+closeForecastModalBtn.addEventListener('click', showForecastModal);
 
 function update() {
     navigator.geolocation.getCurrentPosition(
         function success(position) {
-            const URL = `http://api.weatherapi.com/v1/current.json?key=5d1433c0927249158fb111723230504&q=${position.coords.latitude},${position.coords.longitude}`;
-            findData(URL);
+            const URL =
+                URL_FORECAST +
+                position.coords.latitude +
+                ',' +
+                position.coords.longitude +
+                '&days=7';
+            getData(URL);
         },
         function error(error) {
             console.log(error);
-            findDataByCity();
+            getDataByCity();
         }
     );
 }
 
-function findDataByCity() {
+function getDataByCity() {
     const selectCityModal = document.querySelector('#modalCity');
     const selectCityInput = document.querySelector('#selectedCity');
     const showWeatherBtn = document.querySelector('#showWeatherBtn');
@@ -33,78 +46,54 @@ function findDataByCity() {
     showWeatherBtn.addEventListener('click', () => {
         if (selectCityInput.value) {
             selectCityModal.classList.remove('visible', 'opacity-100');
-            const URL = `http://api.weatherapi.com/v1/current.json?key=5d1433c0927249158fb111723230504&q=${selectCityInput.value}`;
-            findData(URL);
+            const URL = URL_FORECAST + selectCityInput.value + '&days=7';
+            getData(URL);
             selectCityInput.value = '';
+        }
+    });
+
+    closeModal(selectCityModal);
+}
+
+function closeModal(modal) {
+    if (!modal.classList.contains('visible')) {
+        return;
+    }
+
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal')) {
+            modal.classList.remove('visible', 'opacity-100');
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.keyCode == 27) {
+            modal.classList.remove('visible', 'opacity-100');
         }
     });
 }
 
-function findData(URL) {
+function getData(URL) {
     fetch(URL)
         .then((response) => response.json())
         .then((data) => {
-            // console.log(data);
-
-            const mainData = createMainDataObj(data);
-            displayData(mainData);
+            setBg(data);
+            displayMainData(data);
+            displayDailyForecast(data.forecast.forecastday);
+            displayAstroData(data.forecast.forecastday[0].astro);
         })
         .catch((error) => {
-            console.log('Ops! \n' + error);
-            alert("Oops, something's wrong. Please try again!");
-            location.reload();
+            console.log(error);
+            alert("Ops, something's wrong. Please try again!");
         });
 }
 
-function createMainDataObj(data) {
-    const mainData = {};
+function showForecastModal() {
+    const forecastSection = document.querySelector('#forecastSection');
+    forecastSection.classList.toggle('lg:-right-96');
+    forecastSection.classList.toggle('-right-full');
+    forecastSection.classList.toggle('right-0');
 
-    mainData.temp = data.current.temp_c;
-    mainData.icon = data.current.condition.icon;
-    mainData.condition = data.current.condition.text;
-    mainData.city = data.location.name;
-    mainData.country = data.location.country;
-    mainData.currentTime = data.location.localtime;
-
-    return mainData;
-}
-
-function displayData({ temp, icon, condition, city, country, currentTime }) {
-    const temperatureSpan = document.querySelector('#temperature');
-    const citySpan = document.querySelector('#city');
-    const countrySpan = document.querySelector('#country');
-    const conditionIcon = document.querySelector('#conditionIcon');
-    const conditionText = document.querySelector('#conditionText');
-    const greetingDiv = document.querySelector('#greeting');
-    const mainInfoContainer = document.querySelector('#mainInfoContainer');
-
-    temperatureSpan.innerHTML = temp;
-    conditionIcon.src = icon;
-    conditionText.innerHTML = condition;
-    citySpan.innerHTML = city;
-    countrySpan.innerHTML = country;
-    greetingDiv.innerHTML = generateGreeting(currentTime);
-
-    mainInfoContainer.classList.remove('opacity-0');
-}
-
-function generateGreeting(time) {
-    const hours = time.split(' ')[1].split(':')[0];
-
-    if (hours < 12) {
-        return `
-            <i class="fa-solid fa-mug-saucer text-2xl"></i>
-            <span>good morning, it's currently</span>
-            `;
-    } else if (hours < 18) {
-        return `
-            <i class="fa-solid fa-sun text-2xl"></i>
-            <span>good afternoon, it's currently</span>
-            `;
-    } else {
-        return `
-            <i class="fa-solid fa-moon text-2xl"></i>
-            <span>good evening, it's currently</span>
-            `;
-    }
+    document.querySelector('#mainSection').classList.toggle('lg:mr-96');
+    document.querySelector('#moreBtnArrow').classList.toggle('rotate-180');
 }

@@ -5,6 +5,19 @@ module.exports = {
         extend: {
             fontSize: {
                 '10xl': ['12rem', '1'],
+                'fluid-b': ['clamp(4rem, calc(2.31rem + 8vw), 20rem)', '1'],
+                'fluid-s': ['clamp(1.5rem, calc(1rem + 1vw), 2.93rem)', '1'],
+                'fluid-xs': ['clamp(1rem, calc(1rem + 0.3vw), 2.93rem)', '1'],
+            },
+            width: {
+                fluid: 'calc(100% - 12vw)',
+            },
+            spacing: {
+                '0.1em': '0.1em',
+                '0.25em': '0.25em',
+                '0.5em': '0.5em',
+                '1em': '1em',
+                '2em': '2em',
             },
         },
         fontFamily: {
@@ -31,7 +44,6 @@ module.exports = {
                     'base-content': '#f3f3f3',
                 },
             },
-            'dark',
         ],
     },
 };

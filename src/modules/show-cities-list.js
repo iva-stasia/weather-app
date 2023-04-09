@@ -1,8 +1,15 @@
+const URL_SEARCH =
+    'http://api.weatherapi.com/v1/search.json?key=5d1433c0927249158fb111723230504&q=';
+
+let currentFocus = -1;
+
 export function showAvailableCities(input) {
     const listContainer = document.querySelector('#autocompleteContainer');
 
     input.addEventListener('input', () => {
         const value = input.value;
+
+        currentFocus = -1;
 
         if (!value.length) {
             listContainer.innerHTML = '';
@@ -16,34 +23,32 @@ export function showAvailableCities(input) {
         handleClick(e, input, listContainer)
     );
 
-    handleKeyup(input, listContainer);
+    input.addEventListener('keyup', (e) =>
+        handleKeyup(e, input, listContainer)
+    );
 }
 
-function handleKeyup(input, container) {
-    let currentFocus = -1;
+function handleKeyup(e, input, container) {
+    const cities = document.querySelectorAll('li');
+    const citiesNum = document.querySelectorAll('li').length;
 
-    input.addEventListener('keyup', (e) => {
-        const cities = document.querySelectorAll('li');
-        const citiesNum = document.querySelectorAll('li').length;
+    if (!citiesNum) {
+        return;
+    }
 
-        if (!citiesNum) {
-            return;
-        }
+    if (e.keyCode == 40 && currentFocus < citiesNum - 1) {
+        currentFocus++;
+        addActive(cities, currentFocus);
+    } else if (e.keyCode == 38 && currentFocus > 0) {
+        currentFocus--;
+        addActive(cities, currentFocus);
+    } else if (e.keyCode == 13 && currentFocus != -1) {
+        container.innerHTML = '';
+    }
 
-        if (e.keyCode == 40 && currentFocus < citiesNum - 1) {
-            currentFocus++;
-            addActive(cities, currentFocus);
-        } else if (e.keyCode == 38 && currentFocus > 0) {
-            currentFocus--;
-            addActive(cities, currentFocus);
-        } else if (e.keyCode == 13 && currentFocus != -1) {
-            container.innerHTML = '';
-        }
-
-        if (currentFocus != -1) {
-            input.value = cities[currentFocus].dataset.city;
-        }
-    });
+    if (currentFocus != -1) {
+        input.value = cities[currentFocus].dataset.city;
+    }
 }
 
 function addActive(cities, currentFocus) {
@@ -59,9 +64,7 @@ function handleClick(e, input, container) {
 }
 
 function createCitiesList(value, container) {
-    fetch(
-        `http://api.weatherapi.com/v1/search.json?key=5d1433c0927249158fb111723230504&q=${value}`
-    )
+    fetch(URL_SEARCH + value)
         .then((response) => response.json())
         .then((data) => {
             const citiesList = data.map((obj) => {
