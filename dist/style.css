@@ -8502,6 +8502,10 @@ html {
   background-image: url('../src/assets/images/bg.jpg');
 }
 
+.bg-\[url\(\'\.\.\/src\/assets\/images\/night\/rain\.jpg\'\)\] {
+  background-image: url('../src/assets/images/night/rain.jpg');
+}
+
 .decoration-slice {
   -webkit-box-decoration-break: slice;
           box-decoration-break: slice;
