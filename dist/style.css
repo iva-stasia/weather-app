@@ -8494,10 +8494,6 @@ html {
   background-color: hsl(var(--n) / var(--tw-bg-opacity));
 }
 
-.bg-\[url\(\'\.\.\/src\/assets\/images\/\$\{current\.time\}\/\$\{current\.condition\}\.jpg\'\)\] {
-  background-image: url('../src/assets/images/${current.time}/${current.condition}.jpg');
-}
-
 .bg-\[url\(\'\.\.\/src\/assets\/images\/bg\.jpg\'\)\] {
   background-image: url('../src/assets/images/bg.jpg');
 }

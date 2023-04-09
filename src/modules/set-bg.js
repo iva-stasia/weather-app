@@ -22,5 +22,5 @@ export function setBg(data) {
         }
     });
 
-    mainSection.style.backgroundImage = `url('../src/assets/images/${current.time}/${current.condition}.jpg')`;
+    mainSection.style.backgroundImage = `url('./src/assets/images/${current.time}/${current.condition}.jpg')`;
 }
