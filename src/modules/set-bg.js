@@ -22,11 +22,5 @@ export function setBg(data) {
         }
     });
 
-    mainSection.classList.remove(
-        mainSection.classList[mainSection.classList.length - 1]
-    );
-
-    mainSection.classList.add(
-        `bg-[url('../src/assets/images/${current.time}/${current.condition}.jpg')]`
-    );
+    mainSection.style.backgroundImage = `url('../src/assets/images/${current.time}/${current.condition}.jpg')`;
 }
