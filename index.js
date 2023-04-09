@@ -1,8 +1,8 @@
-import { showAvailableCities } from './modules/show-cities-list.js';
-import { setBg } from './modules/set-bg.js';
-import { displayMainData } from './modules/display-main-data.js';
-import { displayDailyForecast } from './modules/display-forecast.js';
-import { displayAstroData } from './modules/display-astro.js';
+import { showAvailableCities } from './src/modules/show-cities-list.js';
+import { setBg } from './src/modules/set-bg.js';
+import { displayMainData } from './src/modules/display-main-data.js';
+import { displayDailyForecast } from './src/modules/display-forecast.js';
+import { displayAstroData } from './src/modules/display-astro.js';
 
 const URL_FORECAST =
     'http://api.weatherapi.com/v1/forecast.json?key=5d1433c0927249158fb111723230504&q=';
