@@ -4,6 +4,8 @@ export function displayDailyForecast(data) {
         '#forecastDailyContainer'
     );
 
+    forecastDailyContainer.innerHTML = '';
+
     forecastDailyData.forEach(
         ({ day, date, maxtemp, mintemp, condition, icon }) => {
             forecastDailyContainer.insertAdjacentHTML(
