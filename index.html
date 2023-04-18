@@ -1,119 +1,127 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Weather</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
-            rel="stylesheet" />
-        <link rel="stylesheet" href="./dist/style.css" />
-        <script defer
-            src="https://kit.fontawesome.com/3a7dd000e2.js"
-            crossorigin="anonymous"></script>
-        <script defer type="module" src="./index.js"></script>
-    </head>
-    <body class="text-xl font-body">
-        <main class="relative h-screen overflow-hidden">
-            <div
-                class="modal bg-black/50 pointer-events-auto z-30"
-                id="modalCity">
-                <div class="modal-box overflow-visible">
-                    <h3 class="font-bold text-lg pb-6">
-                        Which city's weather do you want to see?
-                    </h3>
-                    <div class="relative">
-                        <input
-                            type="text"
-                            placeholder="Enter a city"
-                            class="input input-bordered w-full rounded-full"
-                            id="selectedCity" />
-                        <ul
-                            class="absolute z-30 bg-[#404040] w-full rounded-xl overflow-hidden mt-1"
-                            id="autocompleteContainer"></ul>
-                    </div>
-                    <div class="modal-action justify-center">
-                        <button
-                            class="btn font-bold tracking-widest rounded-full"
-                            id="showWeatherBtn">
-                            Show Weather
-                        </button>
-                    </div>
-                </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./dist/style.css" />
+    <script
+      defer
+      src="https://kit.fontawesome.com/3a7dd000e2.js"
+      crossorigin="anonymous"
+    ></script>
+    <script defer type="module" src="./dist/main.js"></script>
+  </head>
+  <body class="text-xl font-body">
+    <main class="relative h-screen overflow-hidden">
+      <div class="modal bg-black/50 pointer-events-auto z-30" id="modalCity">
+        <div class="modal-box overflow-visible">
+          <h3 class="font-bold text-lg pb-6">
+            Which city's weather do you want to see?
+          </h3>
+          <div class="relative">
+            <input
+              type="text"
+              placeholder="Enter a city"
+              class="input input-bordered w-full rounded-full"
+              id="selectedCity"
+            />
+            <ul
+              class="absolute z-30 bg-[#404040] w-full rounded-xl overflow-hidden mt-1"
+              id="autocompleteContainer"
+            ></ul>
+          </div>
+          <div class="modal-action justify-center">
+            <button
+              class="btn font-bold tracking-widest rounded-full"
+              id="showWeatherBtn"
+            >
+              Show Weather
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <section
+        class="relative h-full text-fluid-s bg-cover bg-center transition-all duration-300 before:content-[''] before:absolute before:bg-black before:w-full before:h-full before:opacity-40 bg-[url('../src/assets/images/bg.jpg')]"
+        id="mainSection"
+      >
+        <div
+          class="h-full w-fluid relative py-2em flex flex-col items-start justify-end gap-12 lg:flex-row lg:items-end lg:justify-between opacity-0 mx-auto"
+          id="mainInfoContainer"
+        >
+          <div class="text-fluid-s">
+            <div id="greeting">
+              <i class="fa-solid fa-sun"></i>
+              <span></span>
             </div>
+            <div class="py-0.1em text-fluid-b font-bold flex items-center">
+              <span id="temperature">0</span><span>&#176;</span>
+            </div>
+            <div class="flex items-center gap-2 pb-0.5em">
+              <img src="" alt="" id="conditionIcon" />
+              <span class="lowercase" id="conditionText"></span>
+            </div>
+            <div class="font-bold">
+              in <span id="city"></span>,
+              <span id="country"></span>
+              <button type="button" id="findCityBtn">
+                <i class="fa-solid fa-magnifying-glass pl-4"></i>
+              </button>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn px-2em font-bold tracking-widest rounded-full transition-all duration-300"
+            id="moreBtn"
+          >
+            <i
+              class="fa-solid fa-angle-left mr-0.5em transition-al duration-300"
+              id="moreBtnArrow"
+            ></i>
+            <span>more</span>
+          </button>
+        </div>
+      </section>
 
-            <section
-                class="relative h-full text-fluid-s bg-cover bg-center transition-all duration-300 before:content-[''] before:absolute before:bg-black before:w-full before:h-full before:opacity-40 bg-[url('../src/assets/images/bg.jpg')]"
-                id="mainSection">
-                <div
-                    class="h-full w-fluid relative py-2em flex flex-col items-start justify-end gap-12 lg:flex-row lg:items-end lg:justify-between opacity-0 mx-auto"
-                    id="mainInfoContainer">
-                    <div class="text-fluid-s">
-                        <div id="greeting">
-                            <i class="fa-solid fa-sun"></i>
-                            <span></span>
-                        </div>
-                        <div
-                            class="py-0.1em text-fluid-b font-bold flex items-center">
-                            <span id="temperature">0</span><span>&#176;</span>
-                        </div>
-                        <div class="flex items-center gap-2 pb-0.5em">
-                            <img src="" alt="" id="conditionIcon" />
-                            <span class="lowercase" id="conditionText"></span>
-                        </div>
-                        <div class="font-bold">
-                            in <span id="city"></span>,
-                            <span id="country"></span>
-                            <button type="button" id="findCityBtn">
-                                <i
-                                    class="fa-solid fa-magnifying-glass pl-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <button
-                        type="button"
-                        class="btn px-2em font-bold tracking-widest rounded-full transition-all duration-300"
-                        id="moreBtn">
-                        <i
-                            class="fa-solid fa-angle-left mr-0.5em transition-al duration-300"
-                            id="moreBtnArrow"></i>
-                        <span>more</span>
-                    </button>
-                </div>
-            </section>
+      <section
+        class="overflow-y-auto bg-neutral text-neutral-content transition-all duration-300 absolute h-full lg:max-w-sm lg:-right-96 -right-full top-0 p-2em flex items-center w-full"
+        id="forecastSection"
+      >
+        <div class="flex gap-14 flex-col items-center m-auto w-full">
+          <button
+            class="btn btn-circle text-5xl lg:hidden"
+            id="closeForecastModalBtn"
+          >
+            <i class="fa-solid fa-circle-xmark"></i>
+          </button>
+          <div class="flex flex-col gap-8" id="forecastDailyContainer"></div>
 
-            <section
-                class="overflow-y-auto bg-neutral text-neutral-content transition-all duration-300 absolute h-full lg:max-w-sm lg:-right-96 -right-full top-0 p-2em flex items-center w-full"
-                id="forecastSection">
-                <div class="flex gap-14 flex-col items-center m-auto w-full">
-                    <button class="btn btn-circle text-5xl lg:hidden" id='closeForecastModalBtn'>
-                        <i class="fa-solid fa-circle-xmark"></i>
-                    </button>
-                    <div
-                        class="flex flex-col gap-8"
-                        id="forecastDailyContainer"></div>
-
-                    <div class="text-2xl flex gap-8 justify-between">
-                        <div class="flex flex-col gap-3">
-                            <span>
-                                <i class="fa-solid fa-sun"></i>
-                                <span class="font-bold">Sunrise</span>
-                            </span>
-                            <span id="sunrise"></span>
-                        </div>
-                        <div class="flex flex-col gap-3">
-                            <span>
-                                <i class="fa-regular fa-sun"></i>
-                                <span class="font-bold">Sunset</span>
-                            </span>
-                            <span id="sunset"></span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </body>
+          <div class="text-2xl flex gap-8 justify-between">
+            <div class="flex flex-col gap-3">
+              <span>
+                <i class="fa-solid fa-sun"></i>
+                <span class="font-bold">Sunrise</span>
+              </span>
+              <span id="sunrise"></span>
+            </div>
+            <div class="flex flex-col gap-3">
+              <span>
+                <i class="fa-regular fa-sun"></i>
+                <span class="font-bold">Sunset</span>
+              </span>
+              <span id="sunset"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
 </html>
